@@ -10,7 +10,7 @@ public class fornecedor {
 	private String telefone; 
 	
 	
-	/*public fornecedor(String cnpj, String nomeFantasia, String ramoDeAtuacao, String endereco, String tipoDeProduto,
+	public fornecedor(String cnpj, String nomeFantasia, String ramoDeAtuacao, String endereco, String tipoDeProduto,
 			String telefone) {
 		super();
 		this.cnpj = cnpj;
@@ -19,7 +19,7 @@ public class fornecedor {
 		this.endereco = endereco;
 		this.tipoDeProduto = tipoDeProduto;
 		this.telefone = telefone;
-	} */
+	} 
 
 
 	public String getCnpj() {
