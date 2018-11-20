@@ -1,5 +1,5 @@
 public class ProdutoNaoEncontradoException extends Exception {
     public ProdutoNaoEncontradoException() {
-        super ("Produto n„o encontrado.") ;
+        super ("Produto n√£o encontrado.") ;
     }
 }
