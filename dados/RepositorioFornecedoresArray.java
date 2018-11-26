@@ -2,8 +2,7 @@ package Fornecedores;
 
 import Excessoes.FornecedorDadosIncompletosException;
 import Excessoes.FornecedorInexistenteConsultaException;
-import Excessoes.FornecedorNaoEncontradoAtException;
-import Excessoes.FornecedorNaoEncontradoPrException;
+import Excessoes.FornecedorNaoEncontradoException;
 import Excessoes.FornecedorNomeJaCadastradoException;
 import negocio.repositorioFornecedores;
 
@@ -17,45 +16,41 @@ public class repositorioFornecedoresArray implements repositorioFornecedores {
 		indice = 0;
 	}
 
-	public void inserir(fornecedor f) throws FornecedorNomeJaCadastradoException { // ta apresentando erro
-		if (!fornecedor.this.getCnpj().equals(f)) { // ta apresentando erro
-		fornecedores[indice] = f;
+	public void inserir(fornecedor forn) throws FornecedorNomeJaCadastradoException { // ta apresentando erro
+		if (!fornecedores.equals(null)) {
+		fornecedores[indice] = forn;
 		indice = indice + 1;
 	} else {
 		new FornecedorNomeJaCadastradoException();
 	}
 	}
 
-	public void atualizar(fornecedor cnpj) throws FornecedorNaoEncontradoAtException  {
+	public void atualizar(fornecedor forn) throws FornecedorNaoEncontradoException  {
 		boolean achou = false;
 		for (int i = 0; i < indice; i++) {
-			if (fornecedores[i].getCnpj().equals(fornecedores.equals(cnpj))) {
+			if (fornecedores[i].getCnpj().equals(forn.equals(forn))) {
 				fornecedores[i] = fornecedores[i];
 				achou = true;
 			}
 		}
 		if (!achou) {
-			new FornecedorNaoEncontradoAtException(); 
+			new FornecedorNaoEncontradoException(); 
 		}
 	}
 
-	public fornecedor procurar(String cnpj) throws FornecedorNaoEncontradoPrException {
+	public fornecedor procurar(fornecedor forn) throws FornecedorNaoEncontradoException {
 		fornecedor fornecedores = null;
 		for (int i = 0; i < indice; i++) {
-			if (this.fornecedores[i].getCnpj().equals(cnpj)) {
-				this.fornecedores = this.fornecedores; 
-				//return fornecedores;
-			} else {
-				new FornecedorNaoEncontradoPrException();
-		}
-	}
-		return fornecedores;
+			if (this.fornecedores[i].getCnpj().equals(forn)) {
+				return fornecedores;
+			}
+	} return null;
 	}
 
-	public void remover (String cnpj) throws FornecedorDadosIncompletosException {
+	public void remover (fornecedor forn) throws FornecedorNaoEncontradoException {
 		boolean achou = false;
 		for (int i = 0; i < indice; i++) {
-			if (fornecedores[i].getCnpj().equals(cnpj)) {
+			if (fornecedores[i].getCnpj().equals(forn)) {
 				achou = true;
 				fornecedores[i] = null;
 				int j = i;
@@ -74,14 +69,30 @@ public class repositorioFornecedoresArray implements repositorioFornecedores {
 		}
 	}
 
-	public boolean existe(String cnpj) throws FornecedorInexistenteConsultaException {
+	public boolean existir(fornecedor forn) throws FornecedorInexistenteConsultaException {
 		boolean achou = false;
 		for (int i = 0; i < indice; i++) {
-			if (fornecedores[i].getCnpj().equals(cnpj)) {
+			if (fornecedores[i].getCnpj().equals(forn)) {
 				achou = true;
 			}
 		}
 		return achou;
 	}
-
+	
+	private int getIndice(fornecedor forn) {
+		String n;
+		boolean achou = false;
+		int i = 0;
+		while ((!achou) && (i < this.indice)) {
+			n = fornecedores[i].getCnpj();
+			if (n.equals(forn)) {
+				achou = true;
+			} else {
+				i = i + 1;
+			}
+		}
+		return i;
+	}
 }
+
+	
