@@ -1,6 +1,9 @@
 package Fornecedores;
 
+import Excessoes.FornecedorDadosIncompletosException;
 import Excessoes.FornecedorNaoEncontradoAtException;
+import Excessoes.FornecedorNaoEncontradoPrException;
+import Excessoes.FornecedorNomeJaCadastradoException;
 
 public class repositorioFornecedorLista {
 	
@@ -14,17 +17,19 @@ public class repositorioFornecedorLista {
 			this.proximo = null;
 		}
 
-		public void inserir(String cnpj) {
+		public void inserir(String cnpj) throws FornecedorNomeJaCadastradoException {
 			if (this.cnpj.equals(null)) {
 				this.cnpj = cnpj;
 				this.proximo = new Lista();
+			} else if (this.cnpj.equals(cnpj)) { // essa parte esta correta? 
+				new FornecedorNomeJaCadastradoException();
 			} else {
 				this.proximo.inserir(cnpj);
 			}
 		}
 
-		public boolean procurar(int cnpj) {
-			if (this.cnpj.equals(cnpj)) {
+		public boolean procurar(int cnpj) throws FornecedorNaoEncontradoPrException {
+			if (this.cnpj.equals(cnpj)) { // pode aqui esse exception? 
 				return true;
 			} else if (this.proximo != null) {
 				return this.proximo.procurar(cnpj);
@@ -41,15 +46,13 @@ public class repositorioFornecedorLista {
 				} else if {
 					this.proximo.atualizar(novo);
 				} else {
-					throw new FornecedorNaoEncontradoAtException();
+					new FornecedorNaoEncontradoAtException();
 				}
 			}		
 		}
 
-
-
 		
-		public void remover(String cnpj) {
+		public void remover(String cnpj) throws FornecedorDadosIncompletosException {
 
 			if (this.cnpj != null) {
 				if (this.cnpj.equals(cnpj)) {
@@ -60,7 +63,7 @@ public class repositorioFornecedorLista {
 					this.proximo.remover(cnpj);
 				}
 			} else {
-				throw new RuntimeException(); // falta inserir os erros
+				new FornecedorDadosIncompletosException(); 
 			}
 		}
 
