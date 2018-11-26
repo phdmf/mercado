@@ -28,11 +28,22 @@ public class repositorioFornecedorLista {
 			}
 		}
 
-		public boolean procurar(int cnpj) throws FornecedorNaoEncontradoPrException {
+		public String procurar(String cnpj) throws FornecedorNaoEncontradoPrException {
+			if (this.cnpj.equals(cnpj)) { // pode aqui esse exception? 
+				return cnpj;
+			} else if (this.proximo != null) {
+				return this.proximo.procurar(cnpj);
+			} else {
+				return null; // retorno o que? 
+			}
+		}
+		
+		
+		public boolean existir(int cnpj) {
 			if (this.cnpj.equals(cnpj)) { // pode aqui esse exception? 
 				return true;
 			} else if (this.proximo != null) {
-				return this.proximo.procurar(cnpj);
+				return this.proximo.existir(cnpj);
 			} else {
 				return false;
 			}
@@ -58,7 +69,7 @@ public class repositorioFornecedorLista {
 				if (this.cnpj.equals(cnpj)) {
 					this.cnpj = this.proximo.cnpj;
 					this.proximo = this.proximo.proximo; // nessa linha ele gera um
-															// loop ate chegar no null?
+									// loop ate chegar no null?
 				} else {
 					this.proximo.remover(cnpj);
 				}
