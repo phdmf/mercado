@@ -1,46 +1,43 @@
 package Fornecedores;
 
 import Excessoes.FornecedorDadosIncompletosException;
-import Excessoes.FornecedorNaoEncontradoAtException;
-import Excessoes.FornecedorNaoEncontradoPrException;
+import Excessoes.FornecedorNaoEncontradoException;
+import Excessoes.FornecedorNaoEncontradoException;
 import Excessoes.FornecedorNomeJaCadastradoException;
 
 public class repositorioFornecedorLista {
-	
-	
+
 	class Lista {
-		private String cnpj;
+		private fornecedor fornecedores;
 		private Lista proximo;
 
 		Lista() {
-			this.cnpj = null;
+			this.fornecedores = null;
 			this.proximo = null;
 		}
 
-		public void inserir(String cnpj) throws FornecedorNomeJaCadastradoException {
-			if (this.cnpj.equals(null)) {
-				this.cnpj = cnpj;
+		// negocios cadastro (checa se tem ou não antes de ir pros metodos)
+
+		public void inserir(fornecedor forn) throws FornecedorNomeJaCadastradoException { // todo q for criado vai ter
+																							// forn. e novo fornecedor
+			if (this.fornecedores.equals(null)) {
+				this.fornecedores = forn;
 				this.proximo = new Lista();
-			} else if (this.cnpj.equals(cnpj)) { // essa parte esta correta? 
-				new FornecedorNomeJaCadastradoException();
 			} else {
-				this.proximo.inserir(cnpj);
+				this.proximo.inserir(forn);
 			}
 		}
 
-		public String procurar(String cnpj) throws FornecedorNaoEncontradoPrException {
-			if (this.cnpj.equals(cnpj)) { // pode aqui esse exception? 
-				return cnpj;
-			} else if (this.proximo != null) {
-				return this.proximo.procurar(cnpj);
+		public fornecedor procurar(fornecedor forn) throws FornecedorNaoEncontradoException {
+			if (this.fornecedores.equals(forn)) { // pode aqui esse exception?
+				return forn;
 			} else {
-				return null; // retorno o que? 
+				return this.proximo.procurar(forn);
 			}
 		}
-		
-		
-		public boolean existir(int cnpj) {
-			if (this.cnpj.equals(cnpj)) { // pode aqui esse exception? 
+
+		public boolean existir(fornecedor cnpj) {
+			if (this.fornecedores.equals(cnpj)) {
 				return true;
 			} else if (this.proximo != null) {
 				return this.proximo.existir(cnpj);
@@ -49,32 +46,23 @@ public class repositorioFornecedorLista {
 			}
 		}
 
-
-		public void atualizar(fornecedor novo) throws FornecedorNaoEncontradoAtException  {
-			if (this.cnpj != null) {
-				if (this.cnpj.equals(novo.getCnpj())) { // ta dando erro aqui nao sei porque
-					this.cnpj = novo; // ta dando erro aqui nao sei porque
-				} else if {
-					this.proximo.atualizar(novo);
-				} else {
-					new FornecedorNaoEncontradoAtException();
-				}
-			}		
+		// nesse atualizar tem que criar um metodo no main para mudar x para y, por
+		// exemplo
+		public void atualizar(fornecedor novo) throws FornecedorNaoEncontradoException {
+			if (this.fornecedores.getCnpj().equals(novo.getCnpj())) {
+				this.fornecedores = novo;
+			} else {
+				this.proximo.atualizar(novo);
+			}
 		}
 
-		
-		public void remover(String cnpj) throws FornecedorDadosIncompletosException {
-
-			if (this.cnpj != null) {
-				if (this.cnpj.equals(cnpj)) {
-					this.cnpj = this.proximo.cnpj;
-					this.proximo = this.proximo.proximo; // nessa linha ele gera um
-									// loop ate chegar no null?
-				} else {
-					this.proximo.remover(cnpj);
-				}
+		public void remover(fornecedor forn) throws FornecedorDadosIncompletosException {
+			if (this.fornecedores.equals(forn)) {
+				this.fornecedores = this.proximo.fornecedores;
+				this.proximo = this.proximo.proximo; // nessa linha ele gera um
+														// loop ate chegar no null?
 			} else {
-				new FornecedorDadosIncompletosException(); 
+				this.proximo.remover(forn);
 			}
 		}
 
