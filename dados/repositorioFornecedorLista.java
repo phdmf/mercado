@@ -8,36 +8,42 @@ import Excessoes.FornecedorNomeJaCadastradoException;
 public class repositorioFornecedorLista {
 
 	class Lista {
-		private fornecedor fornecedores;
+		private fornecedor fornecedor;
 		private Lista proximo;
 
 		Lista() {
-			this.fornecedores = null;
+			this.fornecedor = null;
 			this.proximo = null;
 		}
 
-		// negocios cadastro (checa se tem ou não antes de ir pros metodos)
+		// negocios cadastro (checa se tem ou não antes de ir pros metodos);
+		//
 
 		public void inserir(fornecedor forn) throws FornecedorNomeJaCadastradoException { // todo q for criado vai ter
-																							// forn. e novo fornecedor
-			if (this.fornecedores.equals(null)) {
-				this.fornecedores = forn;
-				this.proximo = new Lista();
+			if (!existir(forn)) { // forn. e novo fornecedor
+				if (this.fornecedor.equals(null)) {
+					this.fornecedor = forn;
+					this.proximo = new Lista();
+				} else {
+					this.proximo.inserir(forn);
+				}
 			} else {
-				this.proximo.inserir(forn);
+				throw new FornecedorNomeJaCadastradoException();
 			}
 		}
 
-		public fornecedor procurar(fornecedor forn) throws FornecedorNaoEncontradoException {
-			if (this.fornecedores.equals(forn)) { // pode aqui esse exception?
-				return forn;
+		public fornecedor procurar(String cnpj) throws FornecedorNaoEncontradoException { 
+			if (this.fornecedor.getCnpj().equals(cnpj)) {
+				return fornecedor;
+			} else if (this.proximo != null) {
+				return this.proximo.procurar(cnpj);
 			} else {
-				return this.proximo.procurar(forn);
+				throw new FornecedorNaoEncontradoException();
 			}
 		}
 
 		public boolean existir(fornecedor cnpj) {
-			if (this.fornecedores.equals(cnpj)) {
+			if (this.fornecedor.getCnpj().equals(cnpj)) {
 				return true;
 			} else if (this.proximo != null) {
 				return this.proximo.existir(cnpj);
@@ -48,21 +54,27 @@ public class repositorioFornecedorLista {
 
 		// nesse atualizar tem que criar um metodo no main para mudar x para y, por
 		// exemplo
+
 		public void atualizar(fornecedor novo) throws FornecedorNaoEncontradoException {
-			if (this.fornecedores.getCnpj().equals(novo.getCnpj())) {
-				this.fornecedores = novo;
-			} else {
+			if (this.fornecedor.getCnpj().equals(novo.getCnpj())) {
+				this.fornecedor = novo;
+			} else if (this.proximo != null) {
 				this.proximo.atualizar(novo);
+			} else {
+				throw new FornecedorNaoEncontradoException();
 			}
 		}
 
-		public void remover(fornecedor forn) throws FornecedorDadosIncompletosException {
-			if (this.fornecedores.equals(forn)) {
-				this.fornecedores = this.proximo.fornecedores;
-				this.proximo = this.proximo.proximo; // nessa linha ele gera um
-														// loop ate chegar no null?
-			} else {
+		
+		public void remover(fornecedor forn) throws FornecedorNaoEncontradoException {
+			if (this.fornecedor.getCnpj().equals(forn.getCnpj())) {
+				this.fornecedor = this.proximo.fornecedor;
+				this.proximo = this.proximo.proximo; // nessa linha ele gera um loop ate chegar no null?
+
+			} else if (this.proximo != null) {
 				this.proximo.remover(forn);
+			} else {
+				throw new FornecedorNaoEncontradoException();
 			}
 		}
 
