@@ -1,9 +1,14 @@
-package Mercadinho.negocioInterface;
+package Mercadinho.Sointerfaces;
 
+import Mercadinho.basic.CaixaAbstrata;
+import Mercadinho.exception.CaixaJaCadastradoException;
+import Mercadinho.exception.NumeroCaixaNaoEncontradaException;
+import Mercadinho.repositorio.RepositorioCaixaArray;
+import Mercadinho.repositorio.RepositorioCaixaLista;
 
 public class CadastroCaixa {
 	private RepositorioCaixa caixa;
-	
+
 	public CadastroCaixa(char t) {
 		if (t == 'a' || t == 'A') {
 			this.caixa = new RepositorioCaixaArray();
@@ -19,12 +24,13 @@ public class CadastroCaixa {
 			throw new CaixaJaCadastradoException();
 		}
 	}
-	
+
 	public CaixaAbstrata procurar(String numeroCaixa) throws NumeroCaixaNaoEncontradaException {
 		return caixa.procurar(numeroCaixa);
 	}
-	public void atualizar (CaixaAbstrata caixa) throws NumeroCaixaNaoEncontradaException {
+
+	public void atualizar(CaixaAbstrata caixa) throws NumeroCaixaNaoEncontradaException {
 		this.caixa.remover(caixa.getNumeroCaixa());
-	}	
-	
+	}
+
 }
