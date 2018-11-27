@@ -1,5 +1,8 @@
 package Mercadinho.repositorio;
 
+import Mercadinho.Sointerfaces.RepositorioCaixa;
+import Mercadinho.basic.CaixaAbstrata;
+import Mercadinho.exception.*;
 
 public class RepositorioCaixaArray implements RepositorioCaixa {
 	
@@ -7,7 +10,7 @@ public class RepositorioCaixaArray implements RepositorioCaixa {
 	private int indice;
 
 	public RepositorioCaixaArray() {
-		caixaAbs = new CaixaAbstrata[30];
+		CaixaAbstrata = new CaixaAbstrata[30];
 		indice = 0;
 	}
 	
