@@ -1,5 +1,9 @@
 package Mercadinho.repositorio;
 
+import Mercadinho.Sointerfaces.RepositorioCaixa;
+import Mercadinho.basic.CaixaAbstrata;
+import Mercadinho.exception.*;
+
 public class RepositorioCaixaLista implements RepositorioCaixa {
 	private CaixaAbstrata caixa;
 	private RepositorioCaixaLista next;
