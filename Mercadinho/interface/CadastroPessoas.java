@@ -1,16 +1,14 @@
-package Mercadinho.negocioInterface;
+package Mercadinho.Sointerfaces;
 
-import basicas.Pessoa;
-import excecoes.PessoaJaCadastradaException;
-import excecoes.PessoaNaoEncontradaException;
-import negocio_dados.RepositorioPessoas;
+import Mercadinho.basic.*;
+import Mercadinho.exception.*;
 
 public class CadastroPessoas {
 
 	private RepositorioPessoas pessoas;
 
 	public void inserir(Pessoa pessoa) throws PessoaJaCadastradaException {
-		if (!pessoas.existe(pessoa.getCpf())) {
+		if (!pessoas.existir(pessoa.getCpf())) {
 			pessoas.inserir(pessoa);
 		} else {
 			throw new PessoaJaCadastradaException();
