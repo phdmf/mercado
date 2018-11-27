@@ -1,5 +1,7 @@
-package Mercadinho.negocioInterface;
+package Mercadinho.Sointerfaces;
 
+import Mercadinho.basic.CaixaAbstrata;
+import Mercadinho.exception.NumeroCaixaNaoEncontradaException;
 
 public interface RepositorioCaixa {
 	
