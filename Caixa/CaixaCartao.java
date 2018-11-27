@@ -1,5 +1,5 @@
-package basicas;
-import Pessoa.*;
+package teste2;
+
 
 public  class CaixaCartao extends CaixaAbstrata {
 	private static final double desconto = 0.1;

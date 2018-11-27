@@ -1,4 +1,4 @@
-package basicas;
+package teste2;
 
 
 public class CaixaDinheiro extends CaixaAbstrata {
@@ -12,4 +12,3 @@ public class CaixaDinheiro extends CaixaAbstrata {
 	}
 	
 }
-

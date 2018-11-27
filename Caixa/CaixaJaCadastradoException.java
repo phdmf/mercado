@@ -1,7 +1,7 @@
-package excecoes;
+package teste2;
 
 public class CaixaJaCadastradoException extends Exception {
 	public CaixaJaCadastradoException() {
-		super("Caixa j√° cadastrado");
+		super("Caixa j· cadastrado");
 	}
 }

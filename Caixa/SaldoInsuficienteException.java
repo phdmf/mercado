@@ -1,4 +1,4 @@
-package excecoes;
+package teste2;
 
 public class SaldoInsuficienteException extends Exception {
 	private int situacao;

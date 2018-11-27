@@ -1,6 +1,5 @@
-package negocio;
-import basicas.*;
-import excecoes.*;
+package teste2;
+
 
 public interface RepositorioCaixa {
 	

@@ -1,8 +1,5 @@
-package negocio_dados;
-import dados.*;
-import negocio.*;
-import excecoes.*;
-import basicas.*;
+package teste2;
+
 
 public class CadastroCaixa {
 	private RepositorioCaixa caixa;
@@ -16,8 +13,8 @@ public class CadastroCaixa {
 	}
 
 	public void cadastrar(CaixaAbstrata caixa) throws CaixaJaCadastradoException {
-		if (!(caixa.existe(caixa.getNumeroCaixa()))) {
-			caixa.inserir(caixa);
+		if (!(this.caixa.existe(caixa.getNumeroCaixa()))) {
+			this.caixa.inserir(caixa);
 		} else {
 			throw new CaixaJaCadastradoException();
 		}
@@ -27,7 +24,7 @@ public class CadastroCaixa {
 		return caixa.procurar(numeroCaixa);
 	}
 	public void atualizar (CaixaAbstrata caixa) throws NumeroCaixaNaoEncontradaException {
-		caixa.remover(numeroCaixa);
+		this.caixa.remover(caixa.getNumeroCaixa());
 	}	
 	
 }

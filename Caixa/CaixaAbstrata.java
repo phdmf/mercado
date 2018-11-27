@@ -1,8 +1,8 @@
-package basicas;
-import Pessoa.*;
+package teste2;
+
 
 public abstract class CaixaAbstrata {
-	private String tipo; //se o caixa √© preferencial ou n√£o
+	private String tipo; //se o caixa È preferencial ou n„o
 	private String disponibilidade;
 	private double situacao; // valor q o caixa inicia 
 	private String numeroCaixa;
@@ -56,6 +56,9 @@ public abstract class CaixaAbstrata {
 	protected void setSituacao (double situacao) { 
 		this.situacao = situacao;
 	}
+
 	
-	public abstract void troco (double valor)
+	public void troco (double valor) {
+		
 	}
+}
