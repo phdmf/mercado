@@ -1,14 +1,13 @@
 package Mercadinho.repositorio;
 
-import Excessoes.FornecedorDadosIncompletosException;
-import Excessoes.FornecedorNaoEncontradoException;
-import Excessoes.FornecedorNaoEncontradoException;
-import Excessoes.FornecedorNomeJaCadastradoException;
+import Mercadinho.exception.*;
+import Mercadinho.Sointerfaces.*;
+import Mercadinho.basic.Fornecedor;
 
-public class repositorioFornecedorLista {
+public class RepositorioFornecedorLista {
 
 	class Lista {
-		private fornecedor fornecedor;
+		private Fornecedor fornecedor;
 		private Lista proximo;
 
 		Lista() {
@@ -16,10 +15,10 @@ public class repositorioFornecedorLista {
 			this.proximo = null;
 		}
 
-		// negocios cadastro (checa se tem ou n„o antes de ir pros metodos);
+		// negocios cadastro (checa se tem ou n√£o antes de ir pros metodos);
 		//
 
-		public void inserir(fornecedor forn) throws FornecedorNomeJaCadastradoException { // todo q for criado vai ter
+		public void inserir(Fornecedor forn) throws FornecedorNomeJaCadastradoException { // todo q for criado vai ter
 			if (!existir(forn)) { // forn. e novo fornecedor
 				if (this.fornecedor.equals(null)) {
 					this.fornecedor = forn;
@@ -32,7 +31,7 @@ public class repositorioFornecedorLista {
 			}
 		}
 
-		public fornecedor procurar(String cnpj) throws FornecedorNaoEncontradoException { 
+		public Fornecedor procurar(String cnpj) throws FornecedorNaoEncontradoException {
 			if (this.fornecedor.getCnpj().equals(cnpj)) {
 				return fornecedor;
 			} else if (this.proximo != null) {
@@ -42,7 +41,7 @@ public class repositorioFornecedorLista {
 			}
 		}
 
-		public boolean existir(fornecedor cnpj) {
+		public boolean existir(Fornecedor cnpj) {
 			if (this.fornecedor.getCnpj().equals(cnpj)) {
 				return true;
 			} else if (this.proximo != null) {
@@ -55,7 +54,7 @@ public class repositorioFornecedorLista {
 		// nesse atualizar tem que criar um metodo no main para mudar x para y, por
 		// exemplo
 
-		public void atualizar(fornecedor novo) throws FornecedorNaoEncontradoException {
+		public void atualizar(Fornecedor novo) throws FornecedorNaoEncontradoException {
 			if (this.fornecedor.getCnpj().equals(novo.getCnpj())) {
 				this.fornecedor = novo;
 			} else if (this.proximo != null) {
@@ -65,8 +64,7 @@ public class repositorioFornecedorLista {
 			}
 		}
 
-		
-		public void remover(fornecedor forn) throws FornecedorNaoEncontradoException {
+		public void remover(Fornecedor forn) throws FornecedorNaoEncontradoException {
 			if (this.fornecedor.getCnpj().equals(forn.getCnpj())) {
 				this.fornecedor = this.proximo.fornecedor;
 				this.proximo = this.proximo.proximo; // nessa linha ele gera um loop ate chegar no null?
@@ -81,20 +79,21 @@ public class repositorioFornecedorLista {
 	}
 	
 	/*
-		public String alarmeInicio(Cantina cantina) {
-		String aviso = cantina.getNome() + " acabou de abrir! :)";
-		return aviso;
-	}
+	public String alarmeInicio(Cantina cantina) {
+	String aviso = cantina.getNome() + " acabou de abrir! :)";
+	return aviso;
+}
 
-	public String alarmeFim(Cantina cantina) {
-		String aviso = cantina.getNome() + " acabou de fechar! :(";
-		return aviso;
-	}
+public String alarmeFim(Cantina cantina) {
+	String aviso = cantina.getNome() + " acabou de fechar! :(";
+	return aviso;
+}
 
 }
-	
-	
-	*/
+
+*/
+
+}
 	
 
 }
