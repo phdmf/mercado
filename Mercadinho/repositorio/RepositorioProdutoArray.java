@@ -1,112 +1,80 @@
 package Mercadinho.repositorio;
 
-import Mercadinho.Sointerfaces.RepositorioPessoas;
-import Mercadinho.basic.Pessoa;
-import Mercadinho.exception.*;
+import Mercadinho.Sointerfaces.RepositorioProduto;
+import Mercadinho.basic.Produto;
+import Mercadinho.exception.ProdutoNaoEncontradoException;
 
-public class RepositorioPessoasArray implements RepositorioPessoas {
-
-	private Pessoa[] pessoas;
+public class RepositorioProdutoArray implements RepositorioProduto {
+	private Produto[] produtos;
 	private int indice;
 
-	public RepositorioPessoasArray(int tam) {
-		pessoas = new Pessoa[tam];
+	public RepositorioProdutoArray(int tam) {
+		produtos = new Produto[tam];
 		indice = 0;
 	}
 
-	public void inserir(Pessoa pessoa) {
-		pessoas[indice] = pessoa;
-		indice = indice + 1;
+	public void inserir(Produto produto) {
+		produtos[indice] = produto;
+		indice++;
 	}
 
-	// MÃ©todo de *procurar* aplicando o "getIndice" diretamente :D
-	public Pessoa procurar(String cpf) throws PessoaNaoEncontradaException {
-		Pessoa p = null;
-
+	public void remover(String tipo) throws ProdutoNaoEncontradoException {
+		boolean achou = false;
 		for (int i = 0; i < indice; i++) {
-			if (pessoas[i].getCpf().equals(cpf)) {
-				p = pessoas[i];
+			if (produtos[i].getTipo().equals(tipo)) {
+				achou = true;
+				produtos[i] = null;
+				int j = i;
+				for (i = j; i < indice; i++) {
+					if (i != indice - 1) {
+						produtos[i] = produtos[i + 1];
+					} else {
+						produtos[i] = null;
+						indice--;
+					}
+				}
 			}
 		}
-		if (p != null) {
-			return p;
+		if (!achou) {
+			throw new ProdutoNaoEncontradoException();
+		}
+	}
+
+	public Produto procurar(String tipo) throws ProdutoNaoEncontradoException {
+		Produto p = null;
+		for (int i = 0; i < indice; i++) {
+			if (produtos[i].getTipo().equals(tipo)) {
+				p = produtos[i];
+			}
+		}
+		if (p == null) {
+			throw new ProdutoNaoEncontradoException();
 		} else {
-			throw new PessoaNaoEncontradaException();
+			return p;
 		}
 	}
 
-	// MÃ©todo remover aplicando o "getIndice" diretamente :D
-	public void remover(String cpf) throws PessoaNaoEncontradaException {
-		boolean find = false;
+	public void atualizar(Produto produto) throws ProdutoNaoEncontradoException {
+		boolean achou = false;
 		for (int i = 0; i < indice; i++) {
-			if (pessoas[i].getCpf().equals(cpf)) {
-				indice = indice - 1;
-				pessoas[i] = pessoas[indice];
-				pessoas[i] = null;
-				find = true;
+			if (produtos[i].getTipo().equals(produto.getTipo())) {
+				produtos[i] = produto;
+				achou = true;
 			}
 		}
-		if (!find) {
-			throw new PessoaNaoEncontradaException();
+		if (!achou) {
+			throw new ProdutoNaoEncontradoException();
 		}
 	}
 
-	public void atualizar(Pessoa pessoa) throws PessoaNaoEncontradaException {
-		boolean find = false;
+	public boolean existe(String tipo) {
+		boolean achou = false;
 		for (int i = 0; i < indice; i++) {
-			if (pessoas[i].getCpf().equals(pessoa.getCpf())) {
-				pessoas[i] = pessoa;
-				find = true;
+			if (produtos[i].getTipo().equals(tipo)) {
+				achou = true;
 			}
 		}
-		if (!find) {
-			throw new PessoaNaoEncontradaException();
-		}
+		return achou;
 	}
-
-	public boolean existir(String cpf) {
-		boolean find = false;
-		for (int i = 0; i < indice; i++) {
-			if (pessoas[i].getCpf().equals(cpf)) {
-				find = true;
-			}
-		}
-		return find;
-	}
-
-	// Exemplo do Projeto feito por SÃ©rgio. Decidir se uso ou nÃ£o no buscar,
-	// atualizar e remover
-	/*
-	 * private int getIndice(String cpf) { String c; boolean find = false; int i =
-	 * 0; while ((!find) && (i < this.indice)) { c = pessoas[i].getCpf();
-	 * if(c.equals(cpf)) { find = true; } else { i = i + 1; } } return i; }
-	 */
-
-	/*
-	 * MÃ©todo de procurar com o getIndice
-	 * 
-	 * public Pessoa procurar (String cpf) throws PNEException { Pessoa p = null;
-	 * int i = this.getIndice(cpf);
-	 * 
-	 * if (i == this.indice) { throw new PNEException(); }else { p =
-	 * this.pessoas[i]; } return p; }
-	 */
-
-	/*
-	 * MÃ©todo remover com o getIndice
-	 * 
-	 * public void remover(String cpf) throws PNEException{ int i =
-	 * this.getIndice(cpf); if (i == this.indice) { throw new PNEException(); }else
-	 * { this.indice = this.indice - 1; this.pessoas[i] = this.pessoas[this.indice];
-	 * this.pessoas[this.indice] = null; } }
-	 */
-
-	/*
-	 * MÃ©todo atualizar com o getIndice
-	 * 
-	 * public void atualizar(Pessoa pessoa) throws PNEException{ int i =
-	 * this.getIndice(pessoa.getCpf()); if(i == this.indice) { throw new
-	 * PNEException(); }else { this.pessoas[i] = pessoa; }
-	 */
 
 }
