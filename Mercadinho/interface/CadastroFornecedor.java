@@ -1,32 +1,35 @@
-package Mercadinho.negocioInterface;
+package Mercadinho.Sointerfaces;
 
-import Excessoes.FornecedorNomeJaCadastradoException;
-import Fornecedores.repositorioFornecedoresArray;
+import Mercadinho.basic.Fornecedor;
+import Mercadinho.exception.FornecedorNaoEncontradoException;
+import Mercadinho.exception.FornecedorNomeJaCadastradoException;
+import Mercadinho.repositorio.RepositorioFornecedorLista;
+import Mercadinho.repositorio.RepositorioFornecedoresArray;
 
 public class CadastroFornecedor {
-	private repositorioFornecedores fornecedor;
+	private RepositorioFornecedores fornecedor;
 
-	public inserir(String forn) {
+	public CadastroFornecedor(char t) {
 		if (t == 'a' || t == 'A') {
-			this.fornecedor = new repositorioFornecedoresArray();
+			this.fornecedor = new RepositorioFornecedoresArray();
 		} else {
-			this.fornecedor = new repositorioFornecedoresLista();
+			this.fornecedor = new RepositorioFornecedorLista();
 		}
 	}
 
-	public void cadastrar(fornecedor forn) throws FornecedorNomeJaCadastradoException {
-		if (!(fornecedor.existe(forn.getCnpj()))) {
+	public void cadastrar(Fornecedor forn) throws FornecedorNomeJaCadastradoException {
+		if (!fornecedor.existir(forn.getCnpj())) {
 			fornecedor.inserir(forn);
 		} else {
 			throw new FornecedorNomeJaCadastradoException();
 		}
 	}
 
-	public fornecedor procurar(String cnpj) throws FornecedorNaoEncontradoException {
+	public Fornecedor procurar(String cnpj) throws FornecedorNaoEncontradoException {
 		return fornecedor.procurar(cnpj);
 	}
 
-	public void atualizar(fornecedor forn) throws FornecedorNaoEncontradoException {
+	public void atualizar(Fornecedor forn) throws FornecedorNaoEncontradoException {
 		fornecedor.remover(forn);
 	}
 
