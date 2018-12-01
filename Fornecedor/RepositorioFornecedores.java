@@ -1,12 +1,18 @@
-package negocio;
+package Fornecedor;
 
-import Fornecedores.fornecedor;
+public interface RepositorioFornecedores {
+	// A interface é que rege as classes dos repositorios;
 
-public interface repositorioFornecedores {
-	
-	public void inserir(fornecedor fornecedor); // criar os casos de erros para habilitar os PNEExceptions. 
-	public void atualizar (fornecedor fornecedor); //throws PNEException;
-	public void remover (String cnpj); // throws PNEException; // o cnpj sera o indice exclusivo (por ser unico) para excluir o fornecedor inteiro
-	public fornecedor procurar (String cnpj); // throws PNEException;
+	public void inserir(Fornecedor fornecedor) throws FornecedorNomeJaCadastradoException;
+
+	public void atualizar(Fornecedor fornecedor) throws FornecedorNaoEncontradoException;
+
+	public Fornecedor procurar(String fornecedor) throws FornecedorNaoEncontradoException;
+
+	boolean existir(Fornecedor fornecedor);
+
+	public void remover(Fornecedor fornecedor) throws FornecedorNaoEncontradoException;
+	// o cnpj sera o indice exclusivo (por ser unico) para excluir o fornecedor
+	// inteiro
 
 }
