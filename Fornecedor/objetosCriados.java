@@ -23,7 +23,10 @@ public class objetosCriados {
 	*
 	*
 	
+	Fornecedor nissin = new Fornecedor ("60.945.169/0001-46", "Nissin-ajinomoto Alimentos Ltda", "Fabricação de massas alimentícias", "PE-050, 110, Glória do Goitá - PE, 55620-000", "Macarrão Instântaneo", "(81) 3366-1800");
+	Fornecedor marilan = new Fornecedor ("52.034.139/0001-50", "MARILAN ALIMENTOS","Fabricação de massas alimentícias", "AV JOSE DE GRANDE, 642 - MARILIA/SP", "Biscoitos e Massas", "(14) 3401-6000"); 
 	
+	//atualizar numerro da nissin para 08007276020
 
 */
 	
