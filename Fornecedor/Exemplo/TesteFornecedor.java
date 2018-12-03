@@ -17,7 +17,7 @@ public class TesteFornecedor {
 
 		Scanner in = new Scanner(System.in);
 
-		// declaraÁ„o de todas as classes inicializando-as
+		// declara√ß√£o de todas as classes inicializando-as
 
 		Fornecedor marilan = null;
 		Fornecedor julia = null;
@@ -30,15 +30,17 @@ public class TesteFornecedor {
 
 		try {
 			System.out
-					.println("Escolha o tipo de repositÛrio: \n1. Array \n2. Lista"); // retirar
+					.println("Escolha o tipo de reposit√≥rio: \n1. Array \n2. Lista"); // retirar
 																						// arquivo
 			op1 = in.nextLine();
 
-			// (aqui diz que se opÁ„o 1 for maior que 1 caractere, ou diferente
-			// do numero 1,2 ou 3, dar· um erro.)
+			// (aqui diz que se op√ß√£o 1 for maior que 1 caractere, ou diferente
+			// do numero 1,2 ou 3, dar√° um erro.)
 
 			if (op1.length() > 1 || !op1.equals("1") && !op1.equals("2")) {
 				throw new ValorInvalidoException();
+				
+				
 			} else if (op1.equals("1")) {
 
 				// declarar o tamanho do array entre os parenteses.
@@ -48,7 +50,7 @@ public class TesteFornecedor {
 			} else if (op1.equals("2")) {
 
 				repFornecedor = new RepositorioFornecedorLista();
-
+				// aqui nao deveria ser as op√ß√µes abaixo de cadastrar?
 			}
 
 			FachadaFornecedor = new FachadaFornecedor(repFornecedor);
@@ -61,49 +63,82 @@ public class TesteFornecedor {
 				if (i == 1) {
 
 					marilan = new Fornecedor("123.456.789", "Marilan",
-							"Biscoitos e Massas", "Marilia, S„o Paulo, SP",
+							"Biscoitos e Massas", "Marilia, S√£o Paulo, SP",
 							"Biscoito Maisena", "11 987654321");
 
 					julia = new Fornecedor("123.400.789", "Julia",
-							"Biscoitos e Massas", "Marilia, S„o Paulo, SP",
+							"Biscoitos e Massas", "Marilia, S√£o Paulo, SP",
 							"Biscoito Maisena", "11 987654321");
 
 					// aqui ja vai ser o cadastro dos objetos instanciados
 
-					System.out.println(marilan.getCnpj());
+					System.out.println("O CNPJ a ser cadastrado √© " + marilan.getCnpj());
 
 					FachadaFornecedor.cadastroFornecedor(marilan);
-					FachadaFornecedor.cadastroFornecedor(julia);
-
+					FachadaFornecedor.cadastroFornecedor(julia); 
+					
+					try {
+						FachadaFornecedor.procurarFornecedor(marilan.getCnpj());  
+								System.out.println("Fornecedor Cadastrado com Sucesso!");
+						} catch (FornecedorNaoEncontradoException e) {
+							System.out.println("Fornecedor n√£o foi cadastrado.");
+						}
+					
 					// aqui vai atualizar os dados ja setados anteriormente
 
 				} else if (i == 2) {
-					Fornecedor forn1 = marilan; // aqui clona ?
+					Fornecedor forn1 = marilan; 
 					forn1.setTelefone("81 94459-7855");
 					FachadaFornecedor.atualizarFornecedor(forn1);
+					System.out.println(marilan.getTelefone());
+					
+					try {
+						forn1 = FachadaFornecedor.procurarFornecedor(marilan.getCnpj());  
+						forn1.getTelefone();
+								System.out.println("Numero de telefone atualizado com Sucesso para " + forn1.getTelefone());
+						} catch (FornecedorNaoEncontradoException e) {
+							System.out.println("Telefone n√£o atualizado." + marilan.getTelefone());
+						}
+					
 				} else if (i == 3) {
 					Fornecedor forn1 = marilan;
 					forn1.setRamoDeAtuacao("Massas");
-					FachadaFornecedor.atualizarFornecedor(forn1);
-				} else if (i == 8) {
+					FachadaFornecedor.atualizarFornecedor(forn1); 
+					System.out.println("Ramo de atua√ß√£o atualizado para " + marilan.getRamoDeAtuacao());
+				
+				} else if (i == 4) {
 					FachadaFornecedor.removerFornecedor(marilan);
+					try {
+						FachadaFornecedor.procurarFornecedor(marilan.getCnpj()); 
+								System.out.println("Ainda no repositorio");
+						} catch (FornecedorNaoEncontradoException e) {
+							System.out.println("removido com sucesso");
+						}
+					
+				} else if (i == 5) {
+					
+					System.out.println("Foi removido?"); 
+					System.out.println(marilan.getCnpj());  					
+					
 				}
 
 			} finally {
-				System.out.println("Deseja continuar? \n1. Sim \n2. N„o");
+				System.out.println("Deseja continuar? \n1. Sim \n2. N√£o");
 				op1 = in.nextLine();
 
 				if (op1.equals("1")) {
 					i++;
 				} else {
+					// alterar esse numero e o while de baixo conforme haja testes acima
 					System.out.println("Tchau :3");
-					i = 11;
+					i = 6;
 				}
 			}
-		} while (i <= 10);
+		} while (i <= 5);
 
-		System.out.println("Tchau :3");
+		System.out.println("Fim do programa. Tchau :3");
 
 		in.close();
 	}
+	
 }
